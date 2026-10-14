@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!-- PAGE 3: Ask a question. This page holds the chat box. -->
+<html lang="mr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>शंका विचारा – AI Mitra</title>
+  <meta name="description" content="फोटो, व्हिडिओ किंवा टेक्स्टमधून तुमची शंका विचारा आणि मराठीत उत्तर मिळवा.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500;0,9..144,700&family=Mukta:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">AI <span>Mitra</span></a>
+
+      <ul class="desktop-links">
+        <li><a href="how-it-works.html">कसं चालतं</a></li>
+        <li><a class="active" href="ask.html">शंका विचारा</a></li>
+        <li><a href="topics.html">विषय</a></li>
+      </ul>
+
+      <div class="header-buttons">
+        <a class="main-button main-button-small" href="ask.html">विचारा</a>
+        <button class="menu-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu" aria-label="मेनू उघडा">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M4 8h16M4 16h11"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== MENU THAT SLIDES IN (phones) ===================== -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="menu">
+    <div class="offcanvas-header">
+      <a class="brand" href="index.html">AI <span>Mitra</span></a>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="बंद करा"></button>
+    </div>
+    <div class="offcanvas-body">
+      <a class="menu-link" href="how-it-works.html">कसं चालतं <small>०१</small></a>
+      <a class="menu-link active" href="ask.html">शंका विचारा <small>०२</small></a>
+      <a class="menu-link" href="topics.html">विषय <small>०३</small></a>
+
+      <a class="main-button" href="ask.html">
+        पहिला प्रश्न विचारा
+        <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+
+
+  <main>
+
+    <section class="page-head">
+      <div class="container">
+        <div class="eyebrow">शंका विचारा</div>
+        <h1>एक प्रश्न विचारा.</h1>
+        <p>वहीचा फोटो जोडा, किंवा फक्त विषयाचं नाव लिहा, उदा. "प्रकाशसंश्लेषण".</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+
+        <!-- "centered" keeps the chat box in the middle on big screens -->
+        <div class="chat-box centered">
+
+          <div class="chat-head">
+            <span>AI Mitra</span>
+            <span class="chat-tag">AI ट्यूटर</span>
+          </div>
+
+          <!-- Chat messages are added here by app.js -->
+          <div class="chat-body" id="chatBody" aria-live="polite">
+            <div class="bubble mitra"><small>AI MITRA</small>नमस्कार 👋 आज कोणता विषय अडलाय? प्रश्न लिहा किंवा फोटो/व्हिडिओ जोडा. मी सोप्या मराठीत समजावून सांगतो.</div>
+          </div>
+
+          <!-- The typing area. The send button is type="button", so it does
+               nothing for now. Later, a backend developer connects it to the AI. -->
+          <form class="composer" id="chatForm">
+            <textarea id="messageInput" name="message" rows="2" maxlength="4000" placeholder="प्रश्न लिहा, किंवा फक्त विषयाचं नाव…" aria-label="तुमचा प्रश्न"></textarea>
+
+            <div class="composer-row">
+
+              <!-- A label wrapped around a hidden file input.
+                   Clicking the label opens the photo picker. -->
+              <label class="attach-button">
+                <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M21 16l-5-5-9 9"/></svg>
+                फोटो
+                <input id="imageInput" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif" class="visually-hidden">
+              </label>
+
+              <label class="attach-button">
+                <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10.5l5-3v9l-5-3z"/></svg>
+                व्हिडिओ
+                <input id="videoInput" type="file" accept="video/mp4,video/webm,video/quicktime" class="visually-hidden">
+              </label>
+
+              <button id="sendButton" type="submit" class="main-button">
+                पाठवा
+                <svg class="icon" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-7z"/></svg>
+              </button>
+
+            </div>
+
+            <p class="composer-note" id="composerNote">फोटो उजेडात आणि सरळ काढा. फाइल कमाल १५ MB. व्हिडिओसाठी थोडा जास्त वेळ लागू शकतो.</p>
+          </form>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div><span class="brand">AI <span>Mitra</span></span> · मराठी विद्यार्थ्यांसाठी बनवलेलं.</div>
+      <div>© 2026 AI Mitra</div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/app.js" defer></script>
+
+</body>
+</html>

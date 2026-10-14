@@ -1,0 +1,1088 @@
+/* =====================================================================
+   AI MITRA: style.css
+   This one file styles all 4 pages.
+   It is loaded AFTER Bootstrap, so when both say something about the
+   same thing, our rule wins.
+
+   HOW THE FILE IS BUILT (mobile first)
+   The normal rules are for PHONES. Near the bottom, "media queries"
+   change things for bigger screens (sections 16 and 17).
+
+   TABLE OF CONTENTS
+    1. Colours and sizes (the :root block)
+    2. Base: page, text, links, icons
+    3. Header
+    4. Sliding menu (phones)
+    5. Buttons
+    6. Hero (top of the home page)
+    7. Notebook picture
+    8. Sections and the 3 steps
+    9. "Ways to ask" list (how-it-works page)
+   10. Chat box
+   11. Topic buttons
+   12. Page heading and closing band (inner pages)
+   13. Footer
+   14. Preloader (logo screen)
+   15. Animations (@keyframes)
+   16. Tablet screens (768px and up)
+   17. Desktop screens (992px and up)
+   18. "Reduce motion" setting
+   ===================================================================== */
+
+
+/* ---------------------------------------------------------------------
+   1. COLOURS AND SIZES
+   A CSS variable is a name for a value. Write it once here, then use it
+   anywhere with var(--name). Change a colour here and the whole site
+   changes.
+
+   accent    = buttons, step numbers, "AI MITRA" labels
+   highlight = the yellow word on the home page and the sticky note
+   --------------------------------------------------------------------- */
+:root {
+  --paper: #F5F7FA;          /* page background */
+  --paper-2: #E9EEF5;        /* slightly darker background for alternate sections */
+  --ink: #14213D;            /* main text colour (dark blue) */
+  --muted: #566277;          /* grey text */
+  --line: #D3DBE6;           /* thin borders */
+  --accent: #2B4C9B;         /* main blue */
+  --accent-dark: #1F3877;    /* darker blue for hover / pressed */
+  --highlight: #FFE27A;      /* yellow */
+
+  --radius: 10px;            /* rounded corners for buttons and inputs */
+  --header-height: 60px;
+  --ease: cubic-bezier(.2, .7, .2, 1);   /* a smooth speed curve for animations */
+}
+
+
+/* ---------------------------------------------------------------------
+   2. BASE
+   --------------------------------------------------------------------- */
+
+/* Bootstrap's "container" has a gutter (side space). We make it 2rem,
+   so each side gets 1rem = 16px on phones. */
+.container {
+  --bs-gutter-x: 2rem;
+}
+
+body {
+  font-family: 'Mukta', sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.7;            /* Marathi letters need extra room for the matras */
+  color: var(--ink);
+  background: var(--paper);
+  overflow-x: clip;            /* the page never scrolls sideways */
+}
+
+h1, h2, h3 {
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+a {
+  color: var(--accent);
+}
+
+/* The text you select with the mouse turns yellow */
+::selection {
+  background: var(--highlight);
+}
+
+/* A blue ring shows where the keyboard focus is (helps keyboard users) */
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Logo font. "brand" is used in the header, menu and footer. */
+.brand {
+  font-family: 'Fraunces', serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+  text-decoration: none;
+}
+.brand span {
+  color: var(--accent);
+  font-style: italic;
+}
+
+/* Our small icons are drawn as lines (outline only, no fill).
+   "currentColor" means: use the same colour as the text around it. */
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;                 /* never let a flex container squash the icon */
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+/* ---------------------------------------------------------------------
+   3. HEADER
+   "sticky" keeps the header at the top while the page scrolls.
+   --------------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1030;              /* stays above the page content */
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+/* Flexbox: puts the logo on the left and the buttons on the right */
+.site-header .container {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;             /* centre up-and-down */
+  justify-content: space-between;  /* push items to the two ends */
+  gap: .75rem;
+}
+
+.header-buttons {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+/* The three-line menu button (phones only) */
+.menu-button {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;        /* centres the icon inside */
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--ink);
+  transition: background-color .15s;
+}
+.menu-button:active {         /* :active = while it is being pressed */
+  background: var(--paper-2);
+}
+.menu-button .icon {
+  stroke-width: 2;
+}
+
+/* The links in the header are hidden on phones (shown in section 17) */
+.desktop-links {
+  display: none;
+}
+
+
+/* ---------------------------------------------------------------------
+   4. SLIDING MENU (phones)
+   "offcanvas" is a Bootstrap class. We only change how it looks.
+   --------------------------------------------------------------------- */
+.offcanvas {
+  background: var(--paper);
+  width: min(86vw, 360px);    /* 86% of the screen, but never more than 360px */
+}
+
+.offcanvas-header {
+  height: var(--header-height);
+  border-bottom: 1px solid var(--line);
+  padding-inline: 1rem;
+}
+.offcanvas-header .brand {
+  font-size: 1.5rem;
+}
+
+.offcanvas-body {
+  display: flex;
+  flex-direction: column;     /* links stack one under the other */
+  padding: .5rem 1rem 1.5rem;
+}
+
+.menu-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+.menu-link small {            /* the small Marathi number on the right */
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--accent);
+}
+.menu-link:active,
+.menu-link.active {           /* .active = the page we are on (set in the HTML) */
+  color: var(--accent);
+}
+
+.offcanvas-body .main-button {
+  margin-top: 1.5rem;
+}
+
+
+/* ---------------------------------------------------------------------
+   5. BUTTONS
+   --------------------------------------------------------------------- */
+
+/* The big blue button */
+.main-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;                          /* space between text and arrow */
+  min-height: 52px;
+  padding: 0 1.5rem;
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: none;
+  box-shadow: 0 3px 0 var(--accent-dark);   /* flat edge, so it looks pressable */
+  transition: transform .15s var(--ease), box-shadow .15s var(--ease), background-color .15s;
+}
+.main-button .icon {
+  stroke-width: 2;
+  transition: transform .2s var(--ease);
+}
+.main-button:hover {                  /* :hover = mouse is over it */
+  background: var(--accent-dark);
+  color: #fff;
+}
+.main-button:hover .icon,
+.main-button:active .icon {
+  transform: translateX(3px);         /* the arrow moves a little to the right */
+}
+.main-button:active {                 /* pressed: the button sinks down */
+  transform: translateY(3px);
+  box-shadow: 0 0 0 var(--accent-dark);
+  color: #fff;
+}
+
+/* A smaller version (used in the header) */
+.main-button-small {
+  min-height: 44px;
+  padding: 0 1.1rem;
+  font-size: 1rem;
+}
+
+/* A simple text link with an underline ("कसं चालतं?") */
+.text-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+.text-button span {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 1px;
+}
+.text-button:active span {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+
+/* ---------------------------------------------------------------------
+   6. HERO (the first big section of the home page)
+   --------------------------------------------------------------------- */
+.hero {
+  padding: 2.25rem 0 3rem;
+}
+
+/* The small grey text above a heading */
+.eyebrow {
+  font-size: .85rem;
+  letter-spacing: .06em;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.hero h1 {
+  /* clamp(smallest, ideal, biggest): the heading grows with the screen width */
+  font-size: clamp(2.7rem, 13vw, 4.6rem);
+  margin: .6rem 0 1rem;
+}
+
+/* The yellow marker behind "विचारा." It starts at width 0 and grows.
+   The animation is in section 15. It waits 2.6s so the preloader finishes first. */
+.mark-word {
+  padding: 0 .12em;
+  background-image: linear-gradient(var(--highlight), var(--highlight));
+  background-repeat: no-repeat;
+  background-position: 0 85%;      /* stick to the bottom of the word */
+  background-size: 0 42%;          /* width 0, height 42% */
+  animation: draw-marker .8s 2.6s var(--ease) forwards;
+}
+
+.lead-text {
+  font-size: 1.15rem;
+  color: var(--muted);
+  max-width: 30rem;
+  margin-bottom: 1.75rem;
+}
+
+/* Button + link. On phones: one under the other. */
+.hero-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+}
+.hero-buttons .main-button {
+  width: 100%;
+}
+
+/* Three small icons: photo | video | typing */
+.ask-types {
+  list-style: none;
+  display: flex;
+  margin: 1.75rem 0 0;
+  padding: 1.1rem 0 0;
+  border-top: 1px solid var(--line);
+}
+.ask-types li {
+  flex: 1;                         /* all three share the width equally */
+  display: flex;
+  flex-direction: column;          /* icon on top, word below */
+  align-items: center;
+  gap: .3rem;
+  font-size: .95rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+.ask-types li + li {               /* a thin line between the items */
+  border-left: 1px solid var(--line);
+}
+.ask-types .icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--accent);
+}
+
+
+/* ---------------------------------------------------------------------
+   7. NOTEBOOK PICTURE (right side of the hero)
+   "position: relative" on the wrapper lets the sticky note be placed
+   with "position: absolute" inside it.
+   --------------------------------------------------------------------- */
+.notebook-wrap {
+  position: relative;
+  margin-top: 2.5rem;
+  padding: 0 .4rem 1.75rem 0;
+}
+
+.notebook {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-left: 12px solid var(--accent);      /* the blue spine */
+  padding: 1.25rem 1.1rem 1.1rem 1.25rem;
+  transform: rotate(.8deg);                   /* slightly tilted */
+  box-shadow: 5px 6px 0 rgba(20, 33, 61, .08);
+  /* The ruled lines: a thin line repeats every 32px */
+  background-image: repeating-linear-gradient(transparent, transparent 31px, #E4EAF2 32px);
+  animation: notebook-settle .8s 2.4s var(--ease) both;
+}
+
+.notebook-label {
+  font-size: .75rem;
+  letter-spacing: .06em;
+  font-weight: 700;
+}
+.label-question {
+  color: var(--muted);
+}
+.label-answer {
+  color: var(--accent);
+}
+
+/* The "photo" of the maths question */
+.question-photo {
+  display: inline-block;
+  background: #fff;
+  border: 1px solid var(--line);
+  padding: .4rem .8rem;
+  font-family: 'Fraunces', serif;
+  font-size: 1.15rem;
+  transform: rotate(-1.5deg);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, .06);
+}
+
+.notebook-step {
+  margin-bottom: .4rem;
+}
+.step-label {
+  color: var(--accent);
+}
+
+/* The yellow sticky note in the corner */
+.sticky-note {
+  position: absolute;
+  right: .5rem;
+  bottom: 0;
+  background: var(--highlight);
+  padding: .4rem .8rem;
+  font-weight: 600;
+  font-size: .9rem;
+  transform: rotate(-3deg);
+  box-shadow: 2px 3px 0 rgba(0, 0, 0, .12);
+}
+
+
+/* ---------------------------------------------------------------------
+   8. SECTIONS AND THE 3 STEPS
+   --------------------------------------------------------------------- */
+.section {
+  padding: 3.5rem 0;
+}
+
+/* A section with a slightly darker background */
+.section-alt {
+  background: var(--paper-2);
+  border-block: 1px solid var(--line);     /* border on top and bottom */
+}
+
+.section h2 {
+  font-size: clamp(1.9rem, 8vw, 2.8rem);
+  margin-bottom: .6rem;
+}
+
+.section-intro {
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+/* The steps look like a vertical timeline. */
+.steps {
+  position: relative;
+}
+/* ::before adds an extra piece with no HTML. Here it is the thin vertical line. */
+.steps::before {
+  content: "";
+  position: absolute;
+  left: .95rem;
+  top: 1.5rem;
+  bottom: 1.5rem;
+  width: 1px;
+  background: var(--line);
+}
+
+.step {
+  position: relative;
+  padding: 0 0 1.5rem 3.25rem;       /* big left padding leaves room for the number */
+}
+.step:last-child {
+  padding-bottom: 0;
+}
+
+.step-number {
+  position: absolute;                 /* placed in the empty left space */
+  left: 0;
+  top: -.15rem;
+  width: 1.9rem;
+  text-align: center;
+  background: var(--paper-2);         /* hides the timeline line behind the number */
+  padding: .15rem 0;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1.9rem;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.step h3 {
+  font-size: 1.25rem;
+  margin-bottom: .15rem;
+}
+.step p {
+  margin: 0;
+  color: var(--muted);
+}
+
+
+/* ---------------------------------------------------------------------
+   9. "WAYS TO ASK" LIST (how-it-works page)
+   --------------------------------------------------------------------- */
+.ways-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0;
+}
+
+.way {
+  display: flex;                      /* icon on the left, text on the right */
+  gap: 1rem;
+  padding: 1.15rem 0;
+  border-top: 1px solid var(--line);
+}
+.way:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.way .icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  margin-top: .25rem;
+  color: var(--accent);
+}
+.way h3 {
+  font-size: 1.2rem;
+  margin: 0 0 .1rem;
+}
+.way p {
+  margin: 0;
+  color: var(--muted);
+}
+
+
+/* ---------------------------------------------------------------------
+   10. CHAT BOX
+   On phones the chat touches both screen edges, like a messaging app.
+   The negative margin (-1rem) cancels the 1rem side padding of the page.
+   --------------------------------------------------------------------- */
+.chat-box {
+  background: #fff;
+  border-block: 1px solid var(--ink);
+  margin-inline: -1rem;
+}
+
+.chat-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .6rem;
+  padding: .85rem 1rem;
+  border-bottom: 1px solid var(--line);
+  font-weight: 600;
+}
+.chat-tag {
+  font-size: .8rem;
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: var(--muted);
+}
+
+.chat-body {
+  padding: 1.25rem 1rem;
+  min-height: 16rem;
+  background: var(--paper);
+}
+
+/* One message */
+.bubble {
+  max-width: 90%;
+  padding: .75rem .95rem;
+  margin-bottom: .9rem;
+  line-height: 1.6;
+}
+/* Your message: dark, on the right. The corner radius order is
+   top-left, top-right, bottom-right, bottom-left. */
+.bubble.me {
+  background: var(--ink);
+  color: #fff;
+  margin-left: auto;                  /* auto margin pushes it to the right */
+  border-radius: 12px 12px 3px 12px;
+}
+/* AI Mitra's message: white, on the left */
+.bubble.mitra {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px 12px 12px 3px;
+}
+.bubble small {                       /* the "AI MITRA" label */
+  display: block;
+  margin-bottom: .1rem;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  color: var(--accent);
+}
+
+/* The typing area */
+.composer {
+  padding: .75rem 1rem;
+  border-top: 1px solid var(--line);
+  background: #fff;
+}
+.composer textarea {
+  width: 100%;
+  min-height: 3.4rem;
+  max-height: 9rem;
+  field-sizing: content;              /* grows while you type (newer browsers) */
+  padding: .8rem .9rem;
+  resize: none;
+  font: inherit;
+  font-size: 1.0625rem;               /* 17px: stops iPhones from zooming in when you tap */
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.composer textarea:focus {            /* :focus = the box you are typing in */
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(43, 76, 155, .15);   /* soft blue glow */
+}
+
+.composer-row {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: .7rem;
+}
+.composer-row .main-button {
+  margin-left: auto;                  /* the send button goes to the far right */
+  min-height: 48px;
+  padding: 0 1.2rem;
+}
+
+.composer-note {
+  margin: .6rem 0 0;
+  font-size: .875rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* "फोटो" and "व्हिडिओ" buttons: a label with a hidden file input inside.
+   Clicking the label opens the file picker. */
+.attach-button {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  min-height: 48px;
+  padding: 0 .85rem;
+  cursor: pointer;
+  border: 1px dashed var(--muted);
+  border-radius: var(--radius);
+  font-weight: 500;
+  font-size: 1rem;
+  transition: background-color .15s, border-color .15s, color .15s;
+}
+.attach-button:active,
+.attach-button:focus-within {         /* focus-within = the hidden input inside has focus */
+  border-color: var(--accent);
+  color: var(--accent);
+  background: #EEF2FB;
+}
+
+
+/* ---------------------------------------------------------------------
+   11. TOPIC BUTTONS
+   --------------------------------------------------------------------- */
+
+/* HOME PAGE, phones: the topics sit in 2 rows that you slide sideways. */
+.topic-list {
+  display: grid;
+  grid-auto-flow: column;                 /* fill column by column, not row by row */
+  grid-template-rows: repeat(2, auto);    /* 2 rows */
+  grid-auto-columns: max-content;         /* each column is as wide as its text */
+  gap: .6rem;
+  overflow-x: auto;                       /* allow sideways scrolling */
+  scrollbar-width: none;                  /* hide the scrollbar (Firefox) */
+  margin-inline: -1rem;                   /* touch both screen edges */
+  padding: .25rem 1rem;
+}
+.topic-list::-webkit-scrollbar {          /* hide the scrollbar (Chrome, Safari) */
+  display: none;
+}
+
+/* TOPICS PAGE (all screens): the buttons simply wrap onto new lines.
+   This rule is more specific, so it beats the one above. */
+.topic-group .topic-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem .5rem;
+  overflow: visible;
+  margin-inline: 0;
+  padding: 0;
+}
+
+.topic-group {
+  margin-bottom: 2rem;
+}
+.topic-group h2 {                         /* subject name, with a blue bar on the left */
+  font-size: 1.2rem;
+  line-height: 1.2;
+  margin-bottom: .75rem;
+  padding-left: .75rem;
+  border-left: 3px solid var(--accent);
+}
+
+/* One topic button */
+.topic {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 1rem;
+  border: 1px solid var(--ink);
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color .15s;
+}
+.topic:active {
+  background: var(--highlight);
+  color: var(--ink);
+}
+
+
+/* ---------------------------------------------------------------------
+   12. PAGE HEADING AND CLOSING BAND (inner pages)
+   --------------------------------------------------------------------- */
+.page-head {
+  padding: 2.25rem 0 2rem;
+  border-bottom: 1px solid var(--line);
+}
+.page-head h1 {
+  font-size: clamp(2.3rem, 10vw, 3.6rem);
+  margin: .5rem 0 .75rem;
+}
+.page-head p {
+  max-width: 34rem;
+  margin: 0;
+  color: var(--muted);
+}
+
+/* The band with one button at the bottom of how-it-works.html */
+.end-cta {
+  padding: 3rem 0;
+  background: var(--paper-2);
+  border-top: 1px solid var(--line);
+}
+.end-cta h2 {
+  font-size: clamp(1.7rem, 7vw, 2.4rem);
+  margin-bottom: 1.25rem;
+}
+
+
+/* ---------------------------------------------------------------------
+   13. FOOTER
+   --------------------------------------------------------------------- */
+.site-footer {
+  padding: 2rem 0;
+  font-size: .95rem;
+  color: var(--muted);
+}
+.site-footer .container {
+  display: flex;
+  flex-direction: column;             /* phones: one line under the other */
+  gap: .35rem;
+}
+/* The logo in the footer is smaller and all one colour */
+.site-footer .brand {
+  font-size: 1.25rem;
+}
+.site-footer .brand span {
+  color: inherit;
+}
+
+
+/* ---------------------------------------------------------------------
+   14. PRELOADER (the logo screen, only on the home page)
+   It covers the whole screen, plays a small animation, then fades away.
+   Total time: about 2.5 seconds, all in CSS (no JavaScript).
+
+   TO CHANGE THE TIME:
+   - the "2s" in `animation: preloader-fade ... 2s` below = when it starts fading
+   - the "2s" in `animation: preloader-fill 2s` = how long the blue line takes
+   - the hero animations (.mark-word and .notebook) wait 2.6s and 2.4s
+     so they start after the preloader. Change those too.
+   --------------------------------------------------------------------- */
+.preloader {
+  position: fixed;                    /* stays fixed on the screen */
+  inset: 0;                           /* shortcut for top, right, bottom, left = 0 */
+  z-index: 2000;                      /* above everything, even the menu */
+  display: grid;
+  place-items: center;
+  background: var(--paper);
+  animation: preloader-fade .5s 2s var(--ease) forwards;
+}
+
+.preloader-inner {
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.preloader-logo {
+  display: inline-flex;
+  gap: .28em;
+  margin: 0;
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  line-height: 1.1;
+  font-size: clamp(2.8rem, 15vw, 4.2rem);
+  color: var(--ink);
+}
+
+/* The two words start invisible, then rise one after the other */
+.preloader-ai,
+.preloader-mitra {
+  opacity: 0;
+  animation: preloader-rise .6s var(--ease) forwards;
+}
+.preloader-ai {
+  animation-delay: .1s;
+}
+.preloader-mitra {
+  position: relative;
+  z-index: 0;
+  font-style: italic;
+  color: var(--accent);
+  animation-delay: .3s;
+}
+/* The yellow marker stroke that draws itself under "Mitra" */
+.preloader-mitra::after {
+  content: "";
+  position: absolute;
+  z-index: -1;                        /* behind the letters */
+  left: -.06em;
+  right: -.06em;
+  bottom: .1em;
+  height: .34em;
+  background: var(--highlight);
+  transform: scaleX(0);               /* width 0 at the start */
+  transform-origin: left;             /* it grows from the left side */
+  animation: preloader-draw .6s .8s var(--ease) forwards;
+}
+
+.preloader-tag {
+  margin: .9rem 0 0;
+  font-size: .95rem;
+  color: var(--muted);
+  opacity: 0;
+  animation: preloader-rise .6s 1s var(--ease) forwards;
+}
+
+/* The thin blue progress line at the bottom of the screen */
+.preloader::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: preloader-fill 2s linear forwards;
+}
+
+
+/* ---------------------------------------------------------------------
+   15. ANIMATIONS
+   @keyframes describes a change over time. A rule above then uses it with
+   `animation: name duration delay speed-curve ...`.
+   "from" is the start, "to" is the end. If "from" is missing, the
+   element's normal style is the start.
+   --------------------------------------------------------------------- */
+
+/* Yellow marker behind the hero word grows to full width */
+@keyframes draw-marker {
+  to { background-size: 100% 42%; }
+}
+
+/* The notebook fades in and settles into place */
+@keyframes notebook-settle {
+  from { opacity: 0; transform: rotate(2.4deg) translateY(12px); }
+}
+
+/* Whole preloader fades out */
+@keyframes preloader-fade {
+  to { opacity: 0; visibility: hidden; }
+}
+
+/* Logo words and tagline float up while fading in */
+@keyframes preloader-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Yellow stroke under "Mitra" and the blue progress line both grow to full width */
+@keyframes preloader-draw {
+  to { transform: scaleX(1); }
+}
+@keyframes preloader-fill {
+  to { transform: scaleX(1); }
+}
+
+
+/* ---------------------------------------------------------------------
+   16. TABLET SCREENS (768px and up)
+   Everything inside @media (min-width: 768px) { ... } only applies when
+   the screen is at least 768px wide. It overrides the phone rules above.
+   --------------------------------------------------------------------- */
+@media (min-width: 768px) {
+
+  body {
+    font-size: 1.1rem;
+  }
+  .container {
+    --bs-gutter-x: 3rem;
+  }
+  .section {
+    padding: 5rem 0;
+  }
+  .page-head {
+    padding: 3.5rem 0 2.5rem;
+  }
+
+  /* Hero: button and link sit side by side */
+  .hero-buttons {
+    flex-direction: row;
+    align-items: center;
+    gap: 1.75rem;
+  }
+  .hero-buttons .main-button {
+    width: auto;
+  }
+
+  /* Chat becomes a framed card with a flat shadow */
+  .chat-box {
+    margin-inline: 0;
+    border: 1px solid var(--ink);
+    border-radius: 6px;
+    box-shadow: 6px 6px 0 var(--ink);
+    overflow: hidden;                 /* keeps the inside from poking out of the rounded corners */
+  }
+  .chat-box.centered {                /* on ask.html: keep the card in the middle */
+    margin-inline: auto;
+    max-width: 46rem;
+  }
+  .chat-body {
+    padding: 1.5rem;
+    min-height: 20rem;
+  }
+  .chat-head,
+  .composer {
+    padding-inline: 1.25rem;
+  }
+
+  /* Home page topics: no more sideways scrolling, buttons wrap instead */
+  .topic-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem .5rem;
+    overflow: visible;
+    margin-inline: 0;
+    padding: 0;
+  }
+  .topic:hover {
+    background: var(--highlight);
+  }
+  /* A tiny tilt on some buttons, like labels placed by hand */
+  .tilt-left {
+    transform: rotate(-.8deg);
+  }
+  .tilt-right {
+    transform: rotate(.7deg);
+  }
+
+  /* Footer: the two parts sit on one line, one left and one right */
+  .site-footer .container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+
+/* ---------------------------------------------------------------------
+   17. DESKTOP SCREENS (992px and up)
+   --------------------------------------------------------------------- */
+@media (min-width: 992px) {
+
+  :root {
+    --header-height: 68px;
+  }
+
+  /* Phone menu button is not needed: show the links instead */
+  .menu-button {
+    display: none;
+  }
+  .desktop-links {
+    display: flex;
+    gap: 1.75rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .desktop-links a {
+    position: relative;
+    padding: .4rem 0;
+    color: var(--ink);
+    font-weight: 500;
+    text-decoration: none;
+  }
+  /* The blue underline: width 0 normally, full width on hover
+     and on the page we are on (class="active") */
+  .desktop-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width .25s var(--ease);
+  }
+  .desktop-links a:hover::after,
+  .desktop-links a.active::after {
+    width: 100%;
+  }
+
+  .hero {
+    padding: 5rem 0 5.5rem;
+  }
+  .notebook-wrap {
+    margin-top: 0;
+    padding: 0 1.5rem 1.75rem 0;
+  }
+  .notebook {
+    padding: 1.6rem 1.6rem 1.4rem 1.8rem;
+    border-left-width: 14px;
+    transform: rotate(1.2deg);
+  }
+  .sticky-note {
+    right: 0;
+    font-size: 1rem;
+  }
+
+  /* Step 2 moves a little to the right (class="step step-offset") */
+  .step-offset {
+    margin-left: 2rem;
+  }
+}
+
+
+/* ---------------------------------------------------------------------
+   18. "REDUCE MOTION" SETTING
+   Some people turn on "reduce motion" on their phone or computer.
+   For them we switch off the animations and skip the preloader.
+   --------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .mark-word {
+    background-size: 100% 42%;        /* show the yellow marker straight away */
+  }
+  .preloader {
+    display: none;
+  }
+}
+
+
+/* Backend-powered chat response formatting */
+.bubble > div { white-space: pre-wrap; overflow-wrap: anywhere; }
+.composer .main-button:disabled { opacity: 0.65; cursor: wait; }

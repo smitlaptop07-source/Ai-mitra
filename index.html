@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<!-- This is the HOME PAGE. The language is Marathi ("mr"). -->
+<html lang="mr">
+
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Makes the page fit phone screens properly -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- The text shown on the browser tab -->
+  <title>AI Mitra – तुमची शंका, तुमच्या भाषेत</title>
+
+  <!-- A short description that Google can show -->
+  <meta name="description" content="फोटो, व्हिडिओ किंवा टेक्स्टमधून तुमची शंका विचारा आणि मराठीत सोपं उत्तर मिळवा.">
+
+  <!-- Google Fonts: Fraunces (logo and numbers) and Mukta (all other text) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500;0,9..144,700&family=Mukta:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap CSS (from the internet, so you need to be online) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- OUR OWN CSS. It is loaded after Bootstrap so our rules win. -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- ===================== PRELOADER =====================
+       The logo screen that shows for about 2 seconds, then fades away.
+       All the animation is done in css/style.css (section 14). -->
+  <div class="preloader">
+    <div class="preloader-inner">
+      <p class="preloader-logo">
+        <span class="preloader-ai">AI</span>
+        <span class="preloader-mitra">Mitra</span>
+      </p>
+      <p class="preloader-tag">मराठीतून शिकणाऱ्यांसाठी</p>
+    </div>
+  </div>
+
+
+  <!-- ===================== HEADER =====================
+       The same header is copied on all 4 pages. -->
+  <header class="site-header">
+    <div class="container">
+
+      <!-- Logo: clicking it goes to the home page -->
+      <a class="brand" href="index.html">AI <span>Mitra</span></a>
+
+      <!-- Links for big screens (hidden on phones by our CSS) -->
+      <ul class="desktop-links">
+        <li><a href="how-it-works.html">कसं चालतं</a></li>
+        <li><a href="ask.html">शंका विचारा</a></li>
+        <li><a href="topics.html">विषय</a></li>
+      </ul>
+
+      <div class="header-buttons">
+        <a class="main-button main-button-small" href="ask.html">विचारा</a>
+
+        <!-- The three-line button. The data-bs-... attributes tell Bootstrap
+             to open the sliding menu that has id="menu". -->
+        <button class="menu-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu" aria-label="मेनू उघडा">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M4 8h16M4 16h11"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- ===================== MENU THAT SLIDES IN (phones) =====================
+       "offcanvas" and "offcanvas-end" are Bootstrap classes:
+       a panel that slides in from the right side. -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="menu">
+
+    <div class="offcanvas-header">
+      <a class="brand" href="index.html">AI <span>Mitra</span></a>
+      <!-- Bootstrap's close (X) button -->
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="बंद करा"></button>
+    </div>
+
+    <div class="offcanvas-body">
+      <a class="menu-link" href="how-it-works.html">कसं चालतं <small>०१</small></a>
+      <a class="menu-link" href="ask.html">शंका विचारा <small>०२</small></a>
+      <a class="menu-link" href="topics.html">विषय <small>०३</small></a>
+
+      <a class="main-button" href="ask.html">
+        पहिला प्रश्न विचारा
+        <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+  </div>
+
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main>
+
+    <!-- ---------- HERO: the first big section ----------
+         "row" and "col-lg-6" are Bootstrap's grid.
+         On phones the two columns stack (one under the other).
+         On screens 992px+ wide ("lg"), each column takes half the width (6 out of 12). -->
+    <section class="hero">
+      <div class="container">
+        <div class="row align-items-center gy-4 gx-lg-5">
+
+          <!-- LEFT COLUMN: text and buttons -->
+          <div class="col-lg-6">
+            <div class="eyebrow">मराठीतून शिकणाऱ्यांसाठी</div>
+
+            <h1>अडलंय? <br>फक्त <span class="mark-word">विचारा.</span></h1>
+
+            <p class="lead-text">
+              वहीतल्या प्रश्नाचा फोटो काढा, किंवा फक्त विषयाचं नाव लिहा.
+              उत्तर मिळेल सोप्या मराठीत, एकेक पायरी समजावून.
+            </p>
+
+            <div class="hero-buttons">
+              <a href="ask.html" class="main-button">
+                पहिला प्रश्न विचारा
+                <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+              <a href="how-it-works.html" class="text-button"><span>कसं चालतं?</span></a>
+            </div>
+
+            <!-- Three small icons: photo, video, typing -->
+            <ul class="ask-types">
+              <li>
+                <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M21 16l-5-5-9 9"/></svg>
+                फोटो
+              </li>
+              <li>
+                <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10.5l5-3v9l-5-3z"/></svg>
+                व्हिडिओ
+              </li>
+              <li>
+                <svg class="icon" viewBox="0 0 24 24"><path d="M5 6h14M12 6v13M9 19h6"/></svg>
+                लिहून
+              </li>
+            </ul>
+          </div>
+
+          <!-- RIGHT COLUMN: the notebook picture -->
+          <div class="col-lg-6">
+            <div class="notebook-wrap">
+
+              <div class="notebook">
+                <div class="notebook-label label-question mb-2">वहीतला प्रश्न</div>
+                <div class="question-photo mb-4">x² − 5x + 6 = 0</div>
+
+                <div class="notebook-label label-answer mb-1">मित्राचं उत्तर</div>
+                <p class="notebook-step">
+                  <b class="step-label">पायरी १:</b>
+                  असे दोन अंक शोधा ज्यांचा <b>गुणाकार 6</b> आणि <b>बेरीज −5</b> आहे. ते आहेत −2 आणि −3.
+                </p>
+                <p class="notebook-step mb-0">
+                  <b class="step-label">पायरी २:</b>
+                  म्हणून <b>x = 2</b> किंवा <b>x = 3</b>.
+                </p>
+              </div>
+
+              <div class="sticky-note">फोटो → मराठी उत्तर</div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ---------- HOW IT WORKS: 3 steps ---------- -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="row gy-4 gx-lg-5">
+
+          <!-- Left: heading (4 of 12 columns on desktop) -->
+          <div class="col-lg-4">
+            <h2>तीन पावलांत शंका दूर.</h2>
+            <p class="section-intro mb-0">क्लास आणि ट्युशननंतरही उरलेले प्रश्न, मग ते रात्री उशिरा असोत किंवा परीक्षेच्या आदल्या दिवशी.</p>
+          </div>
+
+          <!-- Right: steps (7 columns, with 1 empty column before it) -->
+          <div class="col-lg-7 offset-lg-1">
+            <div class="steps">
+
+              <div class="step">
+                <div class="step-number">1</div>
+                <h3>प्रश्न दाखवा</h3>
+                <p>वहीचा फोटो, छोटा व्हिडिओ किंवा दोन ओळी, जे सोपं वाटेल ते.</p>
+              </div>
+
+              <!-- "step-offset" moves this step a little to the right on desktop -->
+              <div class="step step-offset">
+                <div class="step-number">2</div>
+                <h3>मित्र समजून घेतो</h3>
+                <p>प्रश्न वाचून नेमकी कोणती संकल्पना अडतेय ते ओळखतो.</p>
+              </div>
+
+              <div class="step">
+                <div class="step-number">3</div>
+                <h3>मराठीत वाचा</h3>
+                <p>सोप्या मराठीत, उदाहरणासह, एकेक पायरी करून.</p>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ---------- CHAT: a sample conversation ---------- -->
+    <section class="section">
+      <div class="container">
+        <div class="row gy-4 gx-lg-5">
+
+          <div class="col-lg-4">
+            <h2>एक प्रश्न विचारून पहा.</h2>
+            <p class="section-intro mb-0">
+              वहीचा फोटो जोडा, किंवा फक्त विषयाचं नाव लिहा, उदा. "प्रकाशसंश्लेषण".
+            </p>
+          </div>
+
+          <div class="col-lg-8">
+            <div class="chat-box">
+
+              <div class="chat-head">
+                <span>AI Mitra</span>
+                <span class="chat-tag">नमुना संवाद</span>
+              </div>
+
+              <!-- The sample messages (just text for now, no real AI yet) -->
+              <div class="chat-body">
+                <div class="bubble mitra">
+                  <small>AI MITRA</small>
+                  नमस्कार 👋 आज कोणता विषय अडलाय? प्रश्न पाठवा, मी मराठीत समजावतो.
+                </div>
+
+                <div class="bubble me">प्रकाशसंश्लेषण म्हणजे काय?</div>
+
+                <div class="bubble mitra">
+                  <small>AI MITRA</small>
+                  झाडं सूर्यप्रकाश, पाणी आणि हवेतला कार्बन डायऑक्साइड वापरून स्वतःचं अन्न तयार करतात,
+                  त्या क्रियेला <b>प्रकाशसंश्लेषण</b> म्हणतात. यात <b>ऑक्सिजन</b> बाहेर पडतो, तोच आपण श्वासात घेतो.
+                </div>
+              </div>
+
+              <!-- The typing area. The send button is type="button", so it does
+                   nothing for now. Later, a backend developer connects it to the AI. -->
+              <form class="composer">
+                <textarea rows="2" placeholder="प्रश्न लिहा, किंवा फक्त विषयाचं नाव…"></textarea>
+
+                <div class="composer-row">
+
+                  <!-- A label that wraps a hidden file input.
+                       "visually-hidden" is a Bootstrap class that hides the ugly
+                       default file button but keeps it working. -->
+                  <label class="attach-button">
+                    <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M21 16l-5-5-9 9"/></svg>
+                    फोटो
+                    <input type="file" accept="image/*" class="visually-hidden">
+                  </label>
+
+                  <label class="attach-button">
+                    <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10.5l5-3v9l-5-3z"/></svg>
+                    व्हिडिओ
+                    <input type="file" accept="video/*" class="visually-hidden">
+                  </label>
+
+                  <button type="button" class="main-button">
+                    पाठवा
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-7z"/></svg>
+                  </button>
+
+                </div>
+
+                <p class="composer-note">फोटो उजेडात आणि सरळ काढा, म्हणजे अक्षरं नीट वाचता येतात.</p>
+              </form>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ---------- TOPICS ---------- -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="row gy-3 gx-lg-5">
+
+          <div class="col-lg-4">
+            <h2>कुठून सुरू करायचं कळत नाही?</h2>
+          </div>
+
+          <div class="col-lg-8">
+            <div class="topic-list">
+              <a class="topic" href="ask.html">वर्गसमीकरण</a>
+              <a class="topic" href="ask.html">प्रकाशसंश्लेषण</a>
+              <a class="topic tilt-left" href="ask.html">न्यूटनचे गतीचे नियम</a>
+              <a class="topic tilt-right" href="ask.html">पायथागोरस सिद्धांत</a>
+              <a class="topic" href="ask.html">आम्ल आणि आम्लारी</a>
+              <a class="topic tilt-left" href="ask.html">विद्युत मंडल</a>
+              <a class="topic" href="ask.html">पेशी रचना</a>
+              <a class="topic tilt-right" href="ask.html">शिवकालीन इतिहास</a>
+              <a class="topic tilt-left" href="ask.html">नकाशा वाचन</a>
+              <a class="topic" href="ask.html">व्याकरण – समास</a>
+              <a class="topic" href="ask.html">टक्केवारी</a>
+              <a class="topic tilt-right" href="ask.html">अणू आणि रेणू</a>
+            </div>
+
+            <p class="text-muted mt-3 mb-0">यादीत नसेल तरी चालेल, कोणताही विषय विचारा.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div><span class="brand">AI <span>Mitra</span></span> · मराठी विद्यार्थ्यांसाठी बनवलेलं.</div>
+      <div>© 2026 AI Mitra</div>
+    </div>
+  </footer>
+
+
+  <!-- Bootstrap JavaScript. We only need it for the sliding phone menu.
+       We have not written any JavaScript of our own. -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
